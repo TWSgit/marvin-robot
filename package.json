@@ -2,18 +2,14 @@
     "name": "skypebot",
     "version": "1.0.0",
     "description": "",
-    "main": "app.js",
+    "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "engines": {
-        "node": ">=5.6.0"
     },
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "express": "latest",
-        "restify": "^4.1.1",
-        "skype-sdk": "file:skype-sdk.tar.gz"
+        "botbuilder": "^3.1.1",
+        "restify": "^4.1.1"
     }
 }
