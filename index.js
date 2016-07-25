@@ -37,13 +37,8 @@ server.post('/api/messages', connector.listen());
 // Bots Dialogs
 //=========================================================
 
-bot.on('personalMessage', function(bot, data) {
-    var reply = riveBot.reply(data.from, data.content);
+bot.dialog('/', function (session) {
+    var reply = riveBot.reply(session.userData.name, session.message);
 
-    bot.reply('Valasz: ' + reply, true);
-    bot.reply(data, true);
+    session.send('Valasz: ' + reply);
 });
-
-//bot.dialog('/', function (session) {
-//    session.send(".....");
-//});
