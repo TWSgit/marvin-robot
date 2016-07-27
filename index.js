@@ -1,44 +1,57 @@
 var restify = require('restify');
 var builder = require('botbuilder');
 var RiveScript = require('rivescript');
+var riveScriptBot = new RiveScript({utf8: true});
 
 //=========================================================
-// Bot Setup
+// RiveScript Setup
 //=========================================================
-
-var riveBot = new RiveScript();
-
-riveBot.loadDirectory("rivescripts", loading_done, loading_error);
 
 function loading_done (batch_num) {
     console.log("Batch #" + batch_num + " has finished loading!");
-    riveBot.sortReplies();
+    riveScriptBot.sortReplies();
 }
 
 function loading_error (error) {
     console.log("Error when loading files: " + error);
 }
 
+riveScriptBot.unicodePunctuation = new RegExp(/[.,!?;:]/g);
+riveScriptBot.loadDirectory("rivescripts", loading_done, loading_error);
+
+//=========================================================
+// Bot Setup
+//=========================================================
+
 // Setup Restify Server
-var server = restify.createServer();
-server.listen(process.env.port || process.env.PORT || 3978, function () {
+var server = restify.createServer(),
+	port = process.env.port || process.env.PORT || 3978;
+
+server.listen(port, function () {
    console.log('%s listening to %s', server.name, server.url);
 });
 
 // Create chat bot
 var connector = new builder.ChatConnector({
-    appId: process.env.appId,
-    appPassword: process.env.appSecret
+    appId: process.env.appId || null,
+    appPassword: process.env.appSecret || null
 });
-var bot = new builder.UniversalBot(connector);
+
+var chatBot = new builder.UniversalBot(connector);
+
 server.post('/api/messages', connector.listen());
 
 //=========================================================
 // Bots Dialogs
 //=========================================================
 
-bot.dialog('/', function (session) {
-    var reply = riveBot.reply(session.userData.name, session.message);
+chatBot.dialog('/', function (session) {
+	var conversation = session.message.address.conversation.name,
+		isGroup = session.message.address.conversation.isGroup,
+		userName = session.message.user.name,
+		botName = session.message.address.bot.name,
+		messageText = session.message.text,
+		reply = riveScriptBot.reply(userName, messageText);
 
-    session.send('Valasz: ' + reply);
+    session.send(reply);
 });

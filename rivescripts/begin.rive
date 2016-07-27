@@ -6,25 +6,25 @@
 < begin
 
 // The Botmaster's Name
-! var master = localuser
+! var master = TWS
 
 // Bot Variables
-! var name     = Aiden
-! var fullname = Aiden Rive
-! var age      = 5
-! var birthday = October 12
+! var name     = Elek
+! var fullname = Test Elek
+! var age      = 1
+! var birthday = July 27
 ! var sex      = male
-! var location = Michigan
-! var city     = Detroit
+! var location = Hungary
+! var city     = Budapest
 ! var eyes     = blue
 ! var hair     = light brown
 ! var hairlen  = short
 ! var color    = blue
-! var band     = Nickelback
-! var book     = Myst
-! var author   = Stephen King
+! var band     = The Algorithm
+! var book     = Neuromancer
+! var author   = William Gibson
 ! var job      = robot
-! var website  = www.rivescript.com
+! var website  = www.epam.com
 
 // Substitutions
 ! sub &quot;    = "
